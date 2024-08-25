@@ -26,7 +26,7 @@ async function saveCharactersToFile() {
   try {
     const characters = await getAllCharacters();
     fs.writeFileSync('characters.json', JSON.stringify(characters, null, 2));
-    console.log('Characters saved to characters.json');
+    console.log('Personajes guardados en "characters.json"');
   } catch (error) {
     console.error(error);
   }
@@ -39,7 +39,7 @@ function readLocalCharacters() {
     const characters = JSON.parse(data);
 
     // a) Mostrar por consola los personajes de la familia Stark
-    console.log('Family Stark Characters:');
+    console.log('Personajes de la familia Stark:');
     characters.forEach(character => {
       if (character.family === 'House Stark') {
         console.log(character);
@@ -59,12 +59,12 @@ function readLocalCharacters() {
     };
     characters.push(newCharacter);
     fs.writeFileSync('characters.json', JSON.stringify(characters, null, 2));
-    console.log('New character added and file updated');
+    console.log('Se ha añadido un nuevo personaje y se ha actualizado el archivo');
 
     // c) Eliminar los personajes cuyo ID sean mayores a 25 y sobrescribir el archivo original
     const filteredCharacters = characters.filter(character => character.id <= 25);
     fs.writeFileSync('characters.json', JSON.stringify(filteredCharacters, null, 2));
-    console.log('Characters with ID > 25 removed and file updated');
+    console.log('Los personajes con ID > 25 se han removido y se ha actualizado el archivo');
   } catch (error) {
     console.error(error);
   }
