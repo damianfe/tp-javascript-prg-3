@@ -31,6 +31,42 @@ function getNextProductId(products) {
   return maxId + 1;
 }
 
+// 1. Recuperar la información de todos los productos
+async function getAllProducts() {
+  try {
+    const response = await fetch(API_URL); 
+    if (!response.ok) {
+      throw new Error('Error al obtener información de los productos');
+    }
+    const products = await response.json();
+    console.log('Información de todos los productos:', products);
+
+    // Guardar en un archivo JSON
+    fs.writeFileSync('allProducts.json', JSON.stringify(products, null, 2), 'utf-8');
+    console.log('Información guardada en productos.json');
+  } catch (error) {
+    console.error('Error al obtener información de los productos:', error);
+  }
+}
+
+// 2. Recuperar la información de un número limitado de productos
+async function getSomeProducts(amount) {
+  try {
+    const response = await fetch(`${API_URL}?limit=${amount}`);
+    if (!response.ok) {
+      throw new Error('Error al obtener información de los productos');
+    }
+    const products = await response.json();
+    console.log(`Información de los primeros ${amount} productos:`, products);
+
+    // Guardar en un archivo JSON
+    fs.writeFileSync(`someProducts.json`, JSON.stringify(products, null, 2), 'utf-8');
+    console.log(`Información guardada en algunos_productos.json`);
+  } catch (error) {
+    console.error('Error al obtener información de los productos:', error);
+  }
+}
+
 // 3. Agregar un nuevo producto y guardar en archivo JSON
 async function addProduct(newProductDetails) {
   try {
@@ -75,7 +111,11 @@ async function deleteProduct(id) {
   }
 }
 
+// Retornar todos los productos y guardarlos en un json (productos.json)
+getAllProducts();
 
+// Retornar una cantidad limitada de productos (por ej.3) y guardarlos en un json
+getSomeProducts(3);
 
 // Agregar un nuevo producto
 const newProductDetails = {
