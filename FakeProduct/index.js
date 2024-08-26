@@ -3,7 +3,25 @@ const axios = require('axios');
 // URL base de la FakeStore API
 const API_URL = 'https://fakestoreapi.com/products';
 
+// 1. Recuperar la información de todos los productos
+async function getAllProducts() {
+  try {
+    const response = await axios.get(`${API_URL}`);
+    console.log('Información de todos los productos:', response.data);
+  } catch (error) {
+    console.error('Error al obtener información de los productos:', error);
+  }
+}
 
+// 2. Recuperar la información de un número limitado de productos
+async function getLimitedProducts(amount) {
+  try {
+    const response = await axios.get(`${API_URL}?limit=${amount}`);
+    console.log(`Información de los primeros ${amount} productos:`, response.data);
+  } catch (error) {
+    console.error('Error al obtener información de los productos:', error);
+  }
+}
 
 // 3. Agregar un nuevo producto
 async function addProduct(newProduct) {
