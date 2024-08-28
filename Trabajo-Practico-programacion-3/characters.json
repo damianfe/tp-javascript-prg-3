@@ -258,5 +258,15 @@
     "family": "None",
     "image": "gilly.jpg",
     "imageUrl": "https://thronesapi.com/assets/images/gilly.jpg"
+  },
+  {
+    "id": 26,
+    "firstName": "New",
+    "lastName": "Character",
+    "fullName": "New Character",
+    "title": "New Title",
+    "family": "New Family",
+    "imageUrl": "",
+    "image": ""
   }
 ]
