@@ -1,16 +1,21 @@
-const axios = require('axios');
 const fs = require('fs');
+const path = require('path');
+
 
 // URLs y archivo JSON
 const THRONES_API_URL = 'https://thronesapi.com/api/v2/Characters';
-const THRONES_JSON_FILE = 'characters.json';
+const THRONES_JSON_FILE = path.join(__dirname, 'characters.json');
 
 // 1. Recuperar la información de Ned Stark
 async function getNedStark() {
   try {
-    const response = await axios.get(`${THRONES_API_URL}/6`);
+    const response = await fetch(`${THRONES_API_URL}/6`);
+    if (!response.ok) {
+      throw new Error('Error al obtener información de Ned Stark');
+    }
+    const data = await response.json();
     console.log('\nEjercicio 1, Punto 1: Información de Ned Stark:');
-    console.log(response.data);
+    console.log(data);
   } catch (error) {
     console.error('Error al recuperar la información de Ned Stark:', error);
   }
@@ -19,9 +24,13 @@ async function getNedStark() {
 // 2. Recuperar todos los personajes disponibles
 async function getAllCharacters() {
   try {
-    const response = await axios.get(THRONES_API_URL);
+    const response = await fetch(THRONES_API_URL);
+    if (!response.ok) {
+      throw new Error('Error al obtener la lista de personajes');
+    }
+    const data = await response.json();
     console.log('\nEjercicio 1, Punto 2: Todos los personajes disponibles han sido recuperados');
-    return response.data;
+    return data;
   } catch (error) {
     console.error('Error al recuperar todos los personajes:', error);
   }

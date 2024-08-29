@@ -1,17 +1,17 @@
-const axios = require('axios');
 const fs = require('fs');
+const path = require('path');
 
 // URLs y archivo JSON
 const FAKESTORE_API_URL = 'https://fakestoreapi.com/products';
-const FAKESTORE_JSON_FILE = 'productos.json';
+const FAKESTORE_JSON_FILE = path.join(__dirname, 'productos.json');
 
 // 1. Recuperar la información de todos los productos
 async function getAllProducts() {
   try {
-    const response = await fetch(FAKESTORE_API_URL); 
+    const response = await fetch(FAKESTORE_API_URL);
     if (!response.ok) {
       throw new Error('Error al obtener información de los productos');
-    }    
+    }
     const products = await response.json();
     fs.writeFileSync(FAKESTORE_JSON_FILE, JSON.stringify(products, null, 2));
     console.log('\nEjercicio 2, Punto 1: Todos los productos recuperados y guardados en "productos.json".');
