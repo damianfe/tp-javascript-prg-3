@@ -8,8 +8,12 @@ const FAKESTORE_JSON_FILE = 'productos.json';
 // 1. Recuperar la información de todos los productos
 async function getAllProducts() {
   try {
-    const response = await axios.get(FAKESTORE_API_URL);
-    fs.writeFileSync(FAKESTORE_JSON_FILE, JSON.stringify(response.data, null, 2));
+    const response = await fetch(FAKESTORE_API_URL); 
+    if (!response.ok) {
+      throw new Error('Error al obtener información de los productos');
+    }    
+    const products = await response.json();
+    fs.writeFileSync(FAKESTORE_JSON_FILE, JSON.stringify(products, null, 2));
     console.log('\nEjercicio 2, Punto 1: Todos los productos recuperados y guardados en "productos.json".');
   } catch (error) {
     console.error('Error al recuperar todos los productos:', error);
@@ -19,9 +23,13 @@ async function getAllProducts() {
 // 2. Recuperar la información de un número limitado de productos
 async function getLimitedProducts(limit) {
   try {
-    const response = await axios.get(`${FAKESTORE_API_URL}?limit=${limit}`);
+    const response = await fetch(`${FAKESTORE_API_URL}?limit=${limit}`);
+    if (!response.ok) {
+      throw new Error('Error al obtener información de los productos');
+    }
+    const products = await response.json();
     console.log(`\nEjercicio 2, Punto 2: Primeros ${limit} productos recuperados:`);
-    console.log(response.data);
+    console.log(products);
   } catch (error) {
     console.error(`Error al recuperar los primeros ${limit} productos:`, error);
   }
